@@ -1,0 +1,22 @@
+#Will show under Workflows in the repository's Github Actions
+name: Test and Deploy
+
+#Defines when the workflow should be triggered.
+on:
+  push:
+    branches: [main]
+
+#Top-level call-out of the different tasks within the workflow
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps: 
+    - uses: actions/checkout@v3
+    - uses: actions/checkout/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - run: npm ci
+    - run: npm test
